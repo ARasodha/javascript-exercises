@@ -192,17 +192,7 @@
 // // not a boolean bc key's in objs are strings even tho
 // // in an object they dont have quotes around them.
 //
-// let nestedArray = [['title', 'Duke'], ['name', 'Nukem'], ['age', 33]];
-// let person = {};
-// for (let i = 0; i < nestedArray.length; i++){
-//   let pair = nestedArray[i];
-//   person[pair[0]] = pair[1]
-// }
-// console.log(person);
-// console.log(nestedArray);
-// // Expected output:
-// // { title: 'Duke', name: 'Nukem', age: 33 }
-//
+cd ..
 
 
 

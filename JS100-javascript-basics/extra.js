@@ -30,9 +30,9 @@
 //   greet('de'); // 'Hallo!'
 //   greet('sv'); // 'Hej!'
 //   greet('af'); // 'Haai!'
-
-
-// 2 : FUNCTIONS1 - E9 Locale Part 1:
+//
+//
+// // 2 : FUNCTIONS1 - E9 Locale Part 1:
 // function extractLanguage(code){
 //   let lang = code.split('_')[0];
 //   // console.log(lang);
@@ -41,8 +41,8 @@
 // extractLanguage('en_US.UTF-8');  // 'en'
 // extractLanguage('en_GB.UTF-8');  // 'en'
 // extractLanguage('ko_KR.UTF-16'); // 'ko'
-
-// 3 : FUNCTIONS1 - E11 INTERNATIONALIZATION 2:
+//
+// // 3 : FUNCTIONS1 - E11 INTERNATIONALIZATION 2:
 // function greet(lang){
 //   switch (lang){
 //     case 'en' : return 'Hi!';
@@ -76,13 +76,13 @@
 // console.log(localGreet('fr_MA.UTF-8'));
 //
 //
-
-// 3 : VARAIABLE SCOPE - E1 What's my value? (Part 1):
+//
+// // 3 : VARAIABLE SCOPE - E1 What's my value? (Part 1):
 // console.log(greeting);
 // var greeting = 'Hello world!'; // undefined treats it like var greeting;
-
-//4 : VARIABLE SCOPE - E10 What's my value? (Part 10):
-
+//
+// // 4 : VARIABLE SCOPE - E10 What's my value? (Part 10):
+//
 // const a = {
 //   firstName: 'John',
 //   lastName: 'Doe'
@@ -96,7 +96,7 @@
 //
 // console.log(a); // Jane Doe // the function call changes the value
 // //  of firstName in the object A
-
+//
 // // 5 : STRINGS - E8 Blank? Version 2:
 // function isBlank(string){
 //   return string.trim().length === 0;
@@ -104,18 +104,18 @@
 // console.log(isBlank('mars')); // false
 // console.log(isBlank('  '));  //true
 // console.log(isBlank('')); //true
-
-// 6 : STRINGS - E9 Captialize Words:
-// let string = 'launch school tech & talk';
-// let words = string.split(' ');
-// let capitalizedWords = [];
-// for (let i = 0; i < words.length; i++){
-//   let word = words[i];
-//   capitalizedWords.push(word[0].toUpperCase() + word.slice(1));
-// }
-// console.log(capitalizedWords.join(' '));
-
-// 7 : ARRAYS - E9 TRAVEL:
+//
+// // 6 : STRINGS - E9 Captialize Words:
+let string = 'launch school tech & talk';
+let words = string.split(' ');
+let capitalizedWords = [];
+for (let i = 0; i < words.length; i++){
+  let word = words[i];
+  capitalizedWords.push(word[0].toUpperCase() + word.slice(1));
+}
+console.log(capitalizedWords.join(' '));
+//
+// // 7 : ARRAYS - E9 TRAVEL:
 // let destinations = ['Prague', 'London', 'Sydney', 'Belfast', 'Rome',
 //   'Aruba', 'Paris', 'Bora Bora', 'Barcelona', 'Rio de Janeiro',
 //   'Marrakesh', 'New York City'];
@@ -130,8 +130,8 @@
 // }
 // console.log(contains('Barcelona', destinations));
 // console.log(contains('Nashville', destinations));
-
-// E8 : ARRAYS - E11 GROCERY LIST:
+//
+// // E8 : ARRAYS - E11 GROCERY LIST:
 // let groceryList = ['paprika', 'tofu', 'garlic', 'quinoa', 'carrots', 'broccoli', 'hummus'];
 //
 // // Your code.
@@ -151,7 +151,7 @@
 //
 // console.log(groceryList); // []
 //
-// E9 : FUNCTIONS2 - E5 Calculate Cat Age:
+// // E9 : FUNCTIONS2 - E5 Calculate Cat Age:
 // function catAge(humanAge){
 //   switch (humanAge){
 //   case 0: return 0;
@@ -166,16 +166,16 @@
 // console.log(catAge(2)); // 24
 // console.log(catAge(3)); // 28
 // console.log(catAge(4)); // 32
-
-// E10 : OBJECTS - E5 DOT Notation vs. Bracket Notation:
-// SNIPPET 1:
+//
+// // E10 : OBJECTS - E5 DOT Notation vs. Bracket Notation:
+// // SNIPPET 1:
 // let ocean = {};
 // let prefix = 'Indian';
 //
 // ocean.prefix = 'Pacific';
 //
 // console.log(ocean); // {prefix: 'Pacific'}
-
+//
 // SNIPPET 2:
 // let ocean = {};
 // let prefix = 'Indian';
@@ -186,9 +186,9 @@
 //
 // ocean['prefix'] = 'Pacific';
 // console.log(ocean);
-
-
-// E11 : OBJECTS - E6 Is it true?:
+//
+// //
+// // E11 : OBJECTS - E6 Is it true?:
 // let obj = {
 //   num: 42,
 //   'property name': 'string value',
@@ -203,8 +203,8 @@
 //     console.log("It's true!");
 //   }
 // } // true in the if statement needs quotes, keys are strings too
-
-//E12 : OBJECTS - E9 ...and Vice Versa:
+// //
+// // E12 : OBJECTS - E9 ...and Vice Versa:
 // let nestedArray = [['title', 'Duke'], ['name', 'Nukem'], ['age', 33]];
 // let object = Object.fromEntries(nestedArray);
 // // console.log(object);
@@ -217,44 +217,44 @@
 //
 // console.log(person);
 //
-
-
-// Expected output:
+//
+//
+// // Expected output:
 // { title: 'Duke', name: 'Nukem', age: 33 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-///
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+// /

@@ -17,7 +17,9 @@ if (year % 4 === 0 && year % 100 !== 0){
 
 //Book Solution:
 function isLeapYear(year){
-  if (year < 1752 && year % 4 == 0)
+  if (year < 1752 && year % 4 == 0){
+    
+  }
 }
 
 

@@ -1,7 +1,9 @@
 // E7 Exclusive Or:
-
-function xor(value1, value2){
-  return value1 === true || value2 === true;
+function xor(value1, value2) {
+  if ((value1 && !value2) || (value2 && !value1)) {
+    return true;
+  }
+  return false;
 }
 
 console.log(xor(5, 0) === true);

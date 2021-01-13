@@ -1,5 +1,4 @@
 // E6 The End is Near but Not Here:
-
 function penultimate(string) {
   let array = string.split(' ')
   return array[array.length - 2];

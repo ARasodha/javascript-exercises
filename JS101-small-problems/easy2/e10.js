@@ -18,14 +18,14 @@ function stringToInteger(string) {
   return value;
 }
 
-function stringToSignedInteger(string) {
-  switch (string[0]) {
-    case "-":
+function stringToSignedInteger(string){
+  switch(string[0]){
+    case '-':
       return -stringToInteger(string.slice(1, string.length));
-    case "+":
+    case '+':
       return stringToInteger(string.slice(1, string.length));
     default:
-      return stringToInteger(string);
+    return stringToInteger(string);
   }
 }
 

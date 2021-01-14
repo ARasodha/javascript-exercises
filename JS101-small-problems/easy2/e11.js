@@ -1,16 +1,17 @@
 //E11 Convert a Number to a String!:
 const DIGITS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-function integerToString(number){
-let results = '';
 
-do {
+function integerToString(number){
+  let result = '';
+  do {
+
+
   let remainder = number % 10;
   number = Math.floor(number / 10);
 
-  results = DIGITS[remainder] + results;
-} while (number > 0);
-
-return results;
+  result = DIGITS[remainder] + result;
+} while (number > 0)
+return result;
 }
 
 console.log(integerToString(4321));// "4321"

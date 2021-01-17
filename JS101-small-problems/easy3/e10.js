@@ -1,14 +1,14 @@
 // E1Q What Century is That?:
 function century(year) {
-  let centuryNumber = Math.floor(year / 100) + 1;
-  if (year % 100 === 0) {
-    centuryNumber -= 1;
+  let centuryNumber = Math.floor(year / 100 + 1)
+  if (centuryNumber % 100 === 0) {
+    centuryNumber--;
   }
   return String(centuryNumber) + centurySuffix(centuryNumber);
 }
 
 function centurySuffix(centuryNumber) {
-  if (catchWithTh(centuryNumber % 100)) {
+  if (catchWithTh(centuryNumber)) {
     return 'th';
   }
 
@@ -28,8 +28,6 @@ function centurySuffix(centuryNumber) {
 function catchWithTh(lastTwo) {
   return lastTwo === 11 || lastTwo === 12 || lastTwo === 13;
 }
-
-
 console.log(century(2000)); // "20th"
 console.log(century(2001)); // "21st"
 console.log(century(1965)); // "20th"

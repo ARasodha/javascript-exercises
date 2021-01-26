@@ -23,12 +23,12 @@ function swapFirstAndLast(word) {
 }
 
 // Book Version of Swapping First and Last:
-// function swapFirstAndLastCharacters(word){
-//   if (word.length === 1){
-//     return word;
-//   }
-//   return word[word.length-1] + word.slice(1, -1) + word[0];
-// }
+function swapFirstAndLastCharacters(word) {
+  if (word.length === 1){
+    return word;
+  }
+  return word[word.length-1] + word.slice(1, -1) + word[0];
+}
 
 // Change above function call to use Book verision.
 

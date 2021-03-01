@@ -1,0 +1,55 @@
+// E5 Word to Digit:
+// My Attempt:
+function wordToDigit(words) {
+  let numbers = {
+    zero: 0,
+    one: 1,
+    two: 2,
+    three: 3,
+    four: 4,
+    five: 5,
+    six: 6,
+    seven: 7,
+    eight: 8,
+    nine: 9
+  }
+
+  return words.split(' ').map(word => {
+    if (word.includes('.') && Object.keys(numbers).includes(word.slice(0, word.length - 1))) {
+      word = word.slice(0, word.length - 1);
+      return numbers[word] + '.';
+    }
+
+    if (Object.keys(numbers).includes(word)) {
+      return numbers[word];
+    } else {
+      return word;
+    }
+  }).join(' ');
+}
+
+// Lesson Solution (Have not learned RegEx yet):
+// const NUM_WORDS = {
+//   zero:  0,
+//   one:   1,
+//   two:   2,
+//   three: 3,
+//   four:  4,
+//   five:  5,
+//   six:   6,
+//   seven: 7,
+//   eight: 8,
+//   nine:  9,
+// };
+//
+// function wordToDigit(sentence) {
+//   Object.keys(NUM_WORDS).forEach(word => {
+//     let regex = new RegExp(word, 'g');
+//     sentence = sentence.replace(regex, NUM_WORDS[word]);
+//   });
+//
+//   return sentence;
+// }
+
+console.log(wordToDigit('Please call me at five five five one two three four. Thanks.'));
+// "Please call me at 5 5 5 1 2 3 4. Thanks."

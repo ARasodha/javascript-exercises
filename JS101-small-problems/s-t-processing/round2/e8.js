@@ -1,43 +1,39 @@
-/*E8 Staggered Caps (Part 2):
-Explicit Requirements
+/* E8: How long are you?:
+Explicit Requirements:
 - Input: string
-- Output: string
-- Return a function that makes every other character uppercased but skips over
-non letters
-- Non letters should still be present in the return value
+- Output: array
+- return an array with each element being a string (a word) with the length of
+the word beside of it (Ex: ['apples 6']);
+- if the argument of the string is empty return an empty array
 
 Data Structure
-- Strings are being used
+- Array, since we are returning an array
 
 Algorithm
-- Check if character is letter
-  - use a helper function `isLetter`
-- Create count variable. Only incremeent count if the character is a letter. If
-count is even then convert the character to uppercase. If count is uneven then
-convert the character to lowercase
+- if the input string equalsu undefined or an empty string return an empty array
+- Otherwise;:
+- split string into array of words
+- iterates of array of words and concat the length of each word to the corresponding
+word
+- return the array
 */
 
-function staggeredCase(string) {
-  let count = 0;
-  return string.split('').map(char => {
-    char = char.toLowerCase();
-    if (isLetter(char) && count % 2 === 0){
-      count++;
-      return char.toUpperCase();
-    } else if (isLetter(char)) {
-      count++;
-      return char;
-    } else {
-      return char;
-    }
-  }).join('');
+function wordLengths(string) {
+  if (string === undefined || string === '') return [];
+  return string.split(' ').map(word => `${word} ${word.length}`);
 }
 
-function isLetter(char) {
-  return char >= 'a' && char <= 'z';
-}
-console.log(staggeredCase("I Love Launch School!") === "I lOvE lAuNcH sChOoL!");
-console.log(staggeredCase("ALL CAPS") === "AlL cApS");
-console.log(
-  staggeredCase("ignore 77 the 444 numbers") === "IgNoRe 77 ThE 444 nUmBeRs"
-);
+console.log(wordLengths('cow sheep chicken'));
+// ["cow 3", "sheep 5", "chicken 7"]
+
+console.log(wordLengths('baseball hot dogs and apple pie'));
+// ["baseball 8", "hot 3", "dogs 4", "and 3", "apple 5", "pie 3"]
+
+console.log(wordLengths("It ain't easy, is it?"));
+// ["It 2", "ain't 5", "easy, 5", "is 2", "it? 3"]
+
+console.log(wordLengths('Supercalifragilisticexpialidocious'));
+// ["Supercalifragilisticexpialidocious 34"]
+
+console.log(wordLengths('')); // []
+console.log(wordLengths()); // []

@@ -10,6 +10,7 @@ function shortLongShort(string1, string2) {
     console.log(combo);
   }
   return combo;
+  
 }
 
 shortLongShort('abc', 'defgh'); // "abcdefghabc"

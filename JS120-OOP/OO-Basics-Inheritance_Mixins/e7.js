@@ -1,0 +1,15 @@
+// E7 Towable (Part 1):
+let towMixin = {
+  tow() {
+    console.log('I can tow a trailer!');
+  }
+}
+
+class Truck {}
+
+Object.assign(Truck.prototype, towMixin)
+
+class Car {}
+
+let truck = new Truck();
+truck.tow();

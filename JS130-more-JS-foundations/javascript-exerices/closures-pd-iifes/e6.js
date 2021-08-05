@@ -138,3 +138,121 @@ kitchenPotReporter.itemInfo();
 // itemName: kitchen pot
 // category: cooking
 // quantity: 10
+
+
+
+
+//  My First Attempt:
+"use strict";
+
+class Item {
+  constructor(itemName, category, quantity) {
+    this.sku = this.createSku(itemName, category);
+    this.itemName = itemName;
+    this.category = category;
+    this.quantity = quantity;
+  }
+
+  createSku(itemName, category) {
+    let nameArray = itemName.split(' ');
+    let sku = nameArray[0].slice(0, 3) + category.split('').slice(0, 2).join('');
+  
+    return sku.toUpperCase();
+  }
+}
+
+let ItemManager = {
+  items: [],
+  create(itemName, category, quantity) {
+    if ((itemName.split('').filter(char => char !== ' ').length >= 5) && 
+    (!category.includes(' ') && category.length >= 5) && quantity !== undefined) {
+      ItemManager.items.push(new Item(itemName, category, quantity))
+    }
+  },
+
+  update(skuCode, updateObj) {
+    let updateKeys = Object.keys(updateObj);
+    let item = this.items.filter(item => item.sku === skuCode)[0];
+    updateKeys.forEach(key => item[key] = updateObj[key]);
+  },
+
+  inStock() {
+    return this.items.filter(item => item.quantity > 0);
+
+  },
+
+  itemsInCategory(searchCategory) {
+    let itemsInCat = this.items.filter(item => item.category === searchCategory);
+    console.log(itemsInCat.map(item => item.itemName).join(', '));
+  },
+
+  delete(searchSku) {
+    let item = this.items.filter(item => item.sku === searchSku)[0];
+    let index = this.items.indexOf(item);
+    this.items.splice(index, 1);
+  }
+}
+
+let ReportManager = {
+  init(itemManager) {
+    this.items = itemManager;
+  },
+
+  reportInStock() {
+    let itemsInStock = ItemManager.inStock();;
+    console.log(itemsInStock.map(item => item.itemName).join(', '));
+  },
+
+  createReporter(skuCode) {
+    let item = ItemManager.items.filter(item => item.sku === skuCode)[0];
+    return {
+      itemInfo() {
+        let itemKeys = Object.keys(item);
+        itemKeys.forEach(key => console.log(`${key}: ${item[key]}`));
+      }
+    }
+  }
+}
+
+ItemManager.create('basket ball', 'sports', 0);           // valid item
+ItemManager.create('asd', 'sports', 0);
+ItemManager.create('soccer ball', 'sports', 5);           // valid item
+ItemManager.create('football', 'sports');
+ItemManager.create('football', 'sports', 3);              // valid item
+ItemManager.create('kitchen pot', 'cooking items', 0);
+ItemManager.create('kitchen pot', 'cooking', 3);          // valid item
+// returns list with the 4 valid items
+ItemManager.items;
+
+ReportManager.init(ItemManager);
+// logs soccer ball,football,kitchen pot
+ReportManager.reportInStock();
+
+ItemManager.update('SOCSP', { quantity: 0 });
+// returns list with the item objects for football and kitchen pot
+ItemManager.inStock();
+// football,kitchen pot
+ReportManager.reportInStock();
+
+// returns list with the item objects for basket ball, soccer ball, and football
+ItemManager.itemsInCategory('sports');
+
+ItemManager.delete('SOCSP');
+// returns list the remaining 3 valid items (soccer ball is removed from the list)
+ItemManager.items;
+
+let kitchenPotReporter = ReportManager.createReporter('KITCO');
+kitchenPotReporter.itemInfo();
+// logs
+// skuCode: KITCO
+// itemName: kitchen pot
+// category: cooking
+// quantity: 3
+
+ItemManager.update('KITCO', { quantity: 10 });
+kitchenPotReporter.itemInfo();
+// logs
+// skuCode: KITCO
+// itemName: kitchen pot
+// category: cooking
+// quantity: 10

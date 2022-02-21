@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Working with Booking App API</title>
+  <script>
+    document.addEventListener("DOMContentLoaded", event => {
+      let ul = document.getElementById("booking-dates");
+
+      let xhr = new XMLHttpRequest();
+      xhr.open("GET", '/api/schedules');
+      xhr.responseType = 'json';
+      xhr.send();
+
+      xhr.addEventListener("load", event => {
+        let bookedSchedules = xhr.response.filter(({student_email}) => student_email !== null);
+        
+        bookedSchedules.forEach(schedule => {
+          let li = document.createElement('li');
+          li.classList.add('schedule');
+          li.textContent = schedule.date;
+          ul.appendChild(li);
+
+          li.addEventListener("click", event => {
+            let nestUl = document.createElement('ul');
+            li.appendChild(nestUl);
+
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", '/api/staff_members');
+            xhr.responseType = 'json';
+            xhr.send();
+
+            xhr.addEventListener("load", event => {
+              let staffs = xhr.response.filter(({id}) => id === schedule.staff_id);
+
+              staffs.forEach(staff => {
+                if (staff.id === schedule.staff_id) {
+                  let li = document.createElement('li');
+                  li.textContent = `${staff.name} | ${schedule.student_email} | ${schedule.time}`;
+                  nestUl.appendChild(li);
+                }
+              })
+            })
+
+
+          }, {once: true});
+        });
+      });
+    })
+  </script>
+</head>
+<body>
+  <h1>Bookings</h1>
+  <ul id="booking-dates">
+
+  </ul>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Context Menus</title>
+  <style>
+    main, #sub {
+  padding: 15px;
+}
+main {
+  width: 100%;
+  height: 200px;
+  background: blue;
+  color: white;
+}
+
+#sub {
+  position: relative;
+  top: 100px;
+  left: 15px;
+  background: red;
+  height: 50px;
+  width: 50%;
+}
+  </style>
+  <script>
+  document.addEventListener("DOMContentLoaded", event => {
+    let mainArea = document.querySelector('main');
+    let subArea = document.getElementById('sub');
+    
+    mainArea.addEventListener("contextmenu", event => {
+      event.preventDefault();
+      alert(event.currentTarget.tagName)
+    })
+
+    subArea.addEventListener("contextmenu", event => {
+      event.preventDefault();
+      event.stopPropagation();
+      alert(event.currentTarget.tagName);
+    })
+  })
+    
+  </script>
+</head>
+<body>
+  <main>
+    Main Area
+    <section id="sub">
+      Sub Area
+    </section>
+  </main>
+</body>
+</html>

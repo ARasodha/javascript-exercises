@@ -1,0 +1,39 @@
+<!-- Exercise 7 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Exercise 7</title>
+  <script>
+    function cancelSchedule(scheduleId) {
+      let xhr = new XMLHttpRequest();
+      xhr.open('DELETE', `/api/schedules/${scheduleId}`);
+      xhr.send();
+
+      xhr.addEventListener('load', event => {
+        if (xhr.status === 204) {
+          alert(`Schedule with id ${scheduleId} deleted`);
+        } else {
+          (xhr.response);
+        }
+      });
+    }
+
+    function cancelBooking(bookingId) {
+      let xhr = new XMLHttpRequest();
+      xhr.open('PUT', `/api/bookings/${bookingId}`);
+      xhr.send();
+
+      xhr.addEventListener('load', event => {
+        if (xhr.status === 204) {
+          alert(`Booking with id ${bookingId} deleted`);
+        } else {
+          (xhr.response);
+        }
+      });
+    }
+  </script>
+</head>
+<body>
+  
+</body>
+</html>

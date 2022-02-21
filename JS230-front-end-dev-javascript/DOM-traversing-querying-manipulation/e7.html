@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Nodes to Array</title>
+    <script>
+      /*
+      input:
+      output:
+      Rules / Requirements
+      - implement a function that converts the DOM, starting from the `body`, to nested arrays
+      - each element in the DOM is represented as ["PARENT_TAG_NAME", [children]] where the children
+      are elements as well and such follow the same format
+      - when an element has no children, it's represents as ["PARENT_TAG_NAME", []]
+      - for instance, if the HTML doesn't have any elements inside the body, the result array
+      would be: ["BODY", []]
+      - likewise, if the HTML only has a div element as its content, the result would be 
+      ["BODY", [["DIV", []]]]
+      Examples / Test Cases
+      -
+      Data Structure
+      - array
+      Algorithm
+      - 
+      */
+      document.addEventListener("DOMContentLoaded", event => {
+        function nodesToArr() {
+          const nodesArray = ['BODY', formatNodes(Array.prototype.slice.call(document.body.children))];
+          let currentParentNodes = nodesArray[1];
+          console.log(currentParentNodes)
+          while (anyChildren(currentParentNodes)) {
+            currentParentNodes = getNextGenerationParents(currentParentNodes);
+          }
+
+          getNextGenerationParents(currentParentNodes);
+
+          return nodesArray;
+        }
+
+        function getNextGenerationParents(currentParentNodes) {
+          let newParentNodes = [];
+          currentParentNodes.forEach((parentNode, index, parentNodes) => {
+            parentNodes[index] = appendChildren(parentNode);
+            if (parentNodes[index][1].length > 0) {
+              newParentNodes = newParentNodes.concat(parentNodes[index][1]);
+            }
+          });
+
+          return newParentNodes;
+        }
+
+        function anyChildren(parentNodes) {
+          for (let i = 0; i < parentNodes.length; i += 1) {
+            if (parentNodes[i][0].children.length > 0) {
+              return true;
+            }
+          }
+
+          return false;
+        }
+
+        function appendChildren(parentNode) {
+          const children = formatNodes(Array.prototype.slice.call(parentNode[0].children));
+          parentNode[0] = parentNode[0].tagName;
+          parentNode.push(children);
+          return parentNode;
+        }
+
+        function formatNodes(nodes) {
+          return nodes.map(node => [node]);
+        }
+        console.log(nodesToArr())
+      })
+    </script>
+  </head>
+  <body>
+    <header id="1"></header>
+    <main id="2"></main>
+    <footer id="3"></footer>
+  </body>
+</html>

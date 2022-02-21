@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Working with Booking App API</title>
+  <script>
+    document.addEventListener("DOMContentLoaded", event => {
+      let xhr = new XMLHttpRequest();
+      xhr.open("GET", 'http://localhost:3000/api/schedules');
+      xhr.responseType = 'json';
+      xhr.timeout = 8000;
+      xhr.send();
+
+      xhr.addEventListener("load", event => {
+        let schedules = Array.from(xhr.response);
+        let tracker = {};
+
+        if (schedules.length === 0) {
+          alert("There are no schedules for available for booking.");
+        }
+
+        schedules.forEach(({staff_id}) => {
+          if (tracker[staff_id]) {
+            tracker[staff_id]++;
+          } else {
+            tracker[staff_id] = 1;
+          }
+        });
+
+        let staff_ids = Object.keys(tracker);
+        staff_ids.forEach(staff_id => {
+          alert(`Staff ${staff_id}: ${tracker[staff_id]}`);
+        })
+
+      });
+
+      xhr.addEventListener("timeout", event => {
+        alert('The response has timed out, try again');
+      });
+
+      xhr.addEventListener("loadend", event => {
+        alert('The request has completed.');
+      })
+    })
+  </script>
+</head>
+<body>
+</body>
+</html>

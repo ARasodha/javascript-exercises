@@ -1,0 +1,27 @@
+body {
+  background-color: rgba(235, 203, 25, 0.877);
+}
+h1 {
+  display: inline;
+  font-size: 80px;
+  font-family:Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+#timer {
+  text-align: center;
+  margin-top: 200px;
+}
+
+button {
+  border-color: white;
+  margin: 10px;
+  background-color: rgba(235, 203, 25, 0.877);
+  color: white;
+  border-radius: 7px;
+  padding: 2px 10px;
+}
+
+button:hover {
+  background-color: rgba(179, 157, 38, 0.877);
+}

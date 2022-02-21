@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <title>Event Delegation Function</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+       $(function() {
+        $('a').on("click", function(event) {
+          event.preventDefault();
+          let $anchor = $(this);
+        })
+       });
+
+    </script>
+  </head>
+  <body>
+    <ul>
+      <li><a href="#">Apples</a></li>
+      <li><a href="#">Bananas</a></li>
+      <li><a href="#">Oranges</a></li>
+    </ul>
+    
+    <p>Choose your favorite fruit!</p>
+  </body>
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Node Swap</title>
+    <script>
+      /*
+      input: 2 numbers (ids)
+      output: true or undefined
+      Rules / Requirements
+      - write a function that takes two element ids as arguments and swaps the positions of the 
+      elements represented by the ids
+      - the function returns true for valid swaps and undefined for invalid swaps
+      - you can assume that nodes will have a value for id attribute and the two ags will always 
+      be provided
+      Examples / Test Cases
+      -
+      Data Structure
+      -
+      Algorithm
+      - create el1 with id1
+      - create el2 with id2
+      - create parent and init to el1.parentNode
+      - if parent does not include el2, return undefined
+      - create clone1 and init to a deep clone el1
+      - create clone2 and init to a deep clone  el2
+      - call parent replaceChild for el1 with clone2
+      - call parent replaceChild for el2 with clone1
+      - return true
+      */
+
+      document.addEventListener("DOMContentLoaded", event => {
+        function nodeSwap(id1, id2) {
+          let el1 = document.getElementById(String(id1));
+          let el2 = document.getElementById(String(id2));
+
+          if (!el1 || !el2) return undefined;
+
+          let parent = el1.parentNode;
+          let parentChildren = Array.from(parent.children);
+          if (!parentChildren.includes(el2)) return undefined;
+
+          let clone1 = el1.cloneNode(true);
+          let clone2 = el2.cloneNode(true);
+
+          parent.replaceChild(clone2, el1);
+          parent.replaceChild(clone1, el2);
+          return true;
+        }
+
+        console.log(nodeSwap(1, 20))
+        console.log(nodeSwap(1, 4))
+        console.log(nodeSwap(9, 3))
+        console.log(nodeSwap(1, 2));
+      })
+    </script>
+  </head>
+  <body>
+    <div id="1">
+      <div id="4"></div>
+      <div id="5">
+        <div id="6"></div>
+      </div>
+    </div>
+    <div id="2"></div>
+    <div id="3">
+      <div id="7"></div>
+      <div id="8"></div>
+      <div id="9"></div>
+    </div>
+  </body>
+</html>

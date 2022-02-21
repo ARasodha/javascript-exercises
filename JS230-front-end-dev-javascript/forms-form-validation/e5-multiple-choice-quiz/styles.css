@@ -1,0 +1,52 @@
+h1 {
+  font-size: 24px;
+}
+
+body {
+  padding: 0 120px;
+  background-color: rgba(233, 217, 201, 0.945);
+}
+
+button {
+  padding: 10px;
+  border-radius: 5px;
+  border-style: none;
+  font-size: 15px;
+}
+
+#submit-btn {
+  background-color: greenyellow;
+  border-color: greenyellow;
+}
+
+#reset-btn {
+  background-color: rgba(214, 212, 212, 0.979);
+  border-color: rgba(214, 212, 212, 0.979);
+}
+
+.wrong-answer {
+  border: 1px solid red;
+  padding: 10px;
+  display: block;
+}
+
+.correct-answer {
+  border: 1px solid green;
+  padding: 10px;
+  display: block;
+}
+
+input {
+  display: inline-block;
+  padding: 10x;
+}
+
+.question {
+  padding-top: 20px;
+  padding-bottom: 5px;
+  margin: 0;
+}
+
+p {
+  font-size: 18px;
+}

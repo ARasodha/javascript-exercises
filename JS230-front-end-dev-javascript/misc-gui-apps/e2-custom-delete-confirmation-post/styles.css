@@ -1,0 +1,15 @@
+body {
+  background-color: rgb(235, 202, 16);
+  text-align: center;
+}
+
+h1 {
+  color: white;
+}
+
+section {
+  background-color: white;
+  padding: 30px;
+  text-align: left;
+  margin: 30px;
+}

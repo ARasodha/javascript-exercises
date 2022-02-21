@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Document</title>
+</head>
+<script>
+  let animalClasses = {
+    Vertebrate: ['Bear', 'Turtle', 'Whale', 'Salmon', 'Ostrich'],
+    'Warm-blooded': ['Bear', 'Whale', 'Ostrich'],
+    'Cold-blooded': ['Salmon', 'Turtle'],
+    Mammal: ['Bear', 'Whale'],
+    Bird: ['Ostrich']
+  }
+
+  document.addEventListener("DOMContentLoaded", event => {
+    let animalClassifications = document.getElementById("animal-classifications");
+    let animals = document.getElementById("animals");
+    let clearBtn = document.getElementById("clear");
+    let animalOptions = Array.from(document.querySelectorAll("#animals option"));
+    let acOptions = Array.from(document.querySelectorAll("#animal-classifications option"));
+
+    animalClassifications.addEventListener("change", event => {
+      let current = animalClassifications.value;
+      if (current === 'Classifications') return;
+
+      animalOptions.forEach(opt => opt.hidden = false);
+      animalOptions.forEach(opt => {
+        if (!animalClasses[current].includes(opt.value)) {
+          opt.hidden = true;
+        }
+      });
+    });
+
+    animals.addEventListener("change", event => {
+      let current = animals.value;
+      if (current === 'Animals') return;
+
+      let acKeys = Object.keys(animalClasses);
+      let selectedAcs = [];
+
+      acKeys.forEach(key => {
+        if (animalClasses[key].includes(current)) {
+          selectedAcs.push(key);
+        }
+      });
+
+      acOptions.forEach(opt => opt.hidden = false);
+      acOptions.forEach(opt => {
+        if (!selectedAcs.includes(opt.value)) {
+          opt.hidden = true;
+        }
+      });
+    });
+
+    clearBtn.addEventListener("click", event => {
+      event.preventDefault()
+      let form = document.getElementById('selection-filters');
+      animalOptions.forEach(opt => opt.hidden = false);
+      acOptions.forEach(opt => opt.hidden = false);
+      form.reset();
+    })
+  });
+  
+</script>
+<body>
+  <form id="selection-filters" method="post" action="#">
+    <select id="animal-classifications">
+      <option value="Classifications" selected>Classifications</option>
+      <option value="Vertebrate">Vertebrate</option>
+      <option value="Warm-blooded">Warm-blooded</option>
+      <option value="Cold-blooded">Cold-blooded</option>
+      <option value="Mammal">Mammal</option>
+      <option value="Bird">Bird</option>
+    </select>
+    <select id="animals">
+      <option value="Animals" selected>Animals</option>
+      <option value="Bear">Bear</option>
+      <option value="Turtle">Turtle</option>
+      <option value="Whale">Whale</option>
+      <option value="Salmon">Salmon</option>
+      <option value="Ostrich">Ostrich</option>    
+    </select>
+    <button id="clear">Clear</button>  
+  </form>
+  
+</body>
+</html>

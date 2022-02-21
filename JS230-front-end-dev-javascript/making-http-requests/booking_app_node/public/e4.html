@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Working with Booking App API</title>
+  <script>
+    document.addEventListener("DOMContentLoaded", event => {
+      let scheduleNumber = 1;
+      createScheduleTemplate(scheduleNumber);
+
+      let addScheduleBtn = document.querySelector('button');
+      addScheduleBtn.addEventListener("click", event => {
+        scheduleNumber++;
+        createScheduleTemplate(scheduleNumber);
+      });
+      
+      let form = document.querySelector('form');
+      form.addEventListener("submit", event => {
+        event.preventDefault();
+
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', form.action);
+        xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+        let json = getJsonData(scheduleNumber, form);
+        console.log(json);
+        xhr.send(json);
+
+        xhr.addEventListener("load", event => {
+          if (xhr.status === 201) form.reset();
+          console.log(xhr.response);
+        })
+      });
+    })
+
+    function getJsonData(scheduleNumber, form) {
+      let objects = [];
+      for (let count = 0; count < scheduleNumber; count++) {
+        let object = {};
+        object['staff_id'] = form[`staff-name-${String(count + 1)}`].value;
+        object['date'] = form[`date-${String(count + 1)}`].value;
+        object['time'] = form[`time-${String(count + 1)}`].value
+        
+        objects.push(object);
+      }
+
+      return JSON.stringify({schedules: objects});
+    }
+
+
+    function createScheduleTemplate(scheduleNumber) {
+        let div = document.createElement('div');
+
+        let title = document.createElement('h2');
+        title.textContent = `Schedule ${scheduleNumber}`;
+        div.appendChild(title);
+
+        let staffNameLabel = document.createElement('label');
+        staffNameLabel.textContent = ('Staff Name: ');
+        staffNameLabel.setAttribute('for', `staff-name-${scheduleNumber}`);
+        div.appendChild(staffNameLabel);
+
+        let staffNameSelect = document.createElement('select');
+        staffNameSelect.setAttribute('id', `staff-name-${scheduleNumber}`);
+
+        (() => {
+          let xhr = new XMLHttpRequest();
+          xhr.open('GET', '/api/staff_members');
+          xhr.responseType = 'json';
+          xhr.send();
+
+          xhr.addEventListener("load", event => {
+            let staffMembers = xhr.response;
+            let pairs = staffMembers.map(({name, id}) => [id, name]);
+            
+            pairs.forEach(pair => {
+              let option = document.createElement('option');
+              option.setAttribute('label', pair[1]);
+              option.setAttribute('value', pair[0]);
+              option.textContent = pair[1];
+              staffNameSelect.appendChild(option);
+            });
+
+            div.appendChild(staffNameSelect);
+
+            let dateLabel = document.createElement("label");
+            dateLabel.textContent = 'Date: ';
+            dateLabel.setAttribute('for', `date-${scheduleNumber}`);
+            div.appendChild(dateLabel);
+
+            let dateInput = document.createElement("input");
+            dateInput.setAttribute("id", `date-${scheduleNumber}`);
+            dateInput.setAttribute("placeholder", 'mm-dd-yy');
+            div.appendChild(dateInput);
+
+            let timeLabel = document.createElement("label");
+            timeLabel.textContent = 'Time: ';
+            timeLabel.setAttribute("for", `time-${scheduleNumber}`);
+            div.appendChild(timeLabel);
+
+            let timeInput = document.createElement('input');
+            timeInput.setAttribute('id', `time-${scheduleNumber}`);
+            timeInput.setAttribute("placeholder", "hh:mm");
+            div.appendChild(timeInput);
+          });
+        })();
+
+        let section = document.querySelector('section');
+        section.appendChild(div);
+      }
+  </script>
+</head>
+<body>
+  <button id="add-schedules">Add more schedules</button>
+
+ <form action="/api/schedules">
+  <section>
+
+  </section>
+  <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>

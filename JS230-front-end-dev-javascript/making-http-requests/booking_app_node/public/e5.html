@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Working with Booking App API</title>
+  <script>
+    document.addEventListener("DOMContentLoaded", event => {
+      renderOptions();
+
+      (() => {
+        let scheduleForm = document.querySelector("#student-booking form");
+
+        scheduleForm.addEventListener("submit", event => {
+          event.preventDefault();
+
+          let xhr = new XMLHttpRequest();
+          xhr.open('POST', scheduleForm.action);
+          xhr.setRequestHeader("Content-Type", 'application/json; charset=UTF-8');
+          let json = scheduleFormDataToJson(scheduleForm);
+          console.log(json);
+          xhr.send(json);
+          
+          xhr.addEventListener('load', event => {
+            if (xhr.status === 204) {
+              alert("Schedule booked!");
+              scheduleForm.reset();
+            } else {
+              let response = xhr.response.split(' ');
+              let bookingSequence = Number(response[response.length - 1]);
+              
+              alert(xhr.response);
+              
+              let newStudentDiv = document.getElementById("add-new-student")
+              newStudentDiv.hidden = false;
+              newStudentDiv.querySelector('[name=booking_sequence').setAttribute('value', bookingSequence);
+              newStudentDiv.querySelector('[type=email]').value = scheduleForm.querySelector('[type=email]').value;
+
+              let newStudentForm = newStudentDiv.querySelector("form");
+              newStudentForm.addEventListener("submit", event => {
+                event.preventDefault();
+                let xhr2 = new XMLHttpRequest();
+                xhr2.open("POST", newStudentForm.action);
+                xhr2.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+
+                let formData = new FormData(newStudentForm);
+                let data = formDataToJson(formData);
+                console.log(data)
+                xhr2.send(data);
+
+                xhr2.addEventListener('load', event => {
+                  if (xhr2.status === 201) {
+                    newStudentForm.reset();
+                    scheduleForm.requestSubmit();
+                    newStudentDiv.hidden = true;
+                  }
+                  alert(xhr2.response);
+                });
+              })
+            }
+          });
+        })
+      })();
+
+    })
+
+    function formDataToJson(formData) {
+      let object = {};
+      formData.forEach((value, key) => {
+        object[key] = value;
+      });
+
+      return JSON.stringify(object);
+    }
+
+    function newStudentFromDataToJson(newStudentForm) {
+      let json = {};
+      json['email'] = newStudentForm['student_email'].value;
+      json['name'] = newStudentForm['name'].value;
+      json['booking_sequence'] = newStudentForm["booking_sequence"].value;
+
+      return JSON.stringify(json);
+    }
+
+    function scheduleFormDataToJson(form) {
+      let json = {};
+      json['id'] = form["select-schedule"].value;
+      json['student_email'] = form['student_email'].value;
+      return JSON.stringify(json);
+    }
+
+    function renderOptions() {
+        let select = document.getElementById("select-schedule");
+        (() => {
+          let xhr = new XMLHttpRequest();
+          xhr.open("GET", 'api/schedules');
+          xhr.responseType = 'json';
+          xhr.send();
+          
+          xhr.addEventListener('load', event => {
+            let availableSchedules = xhr.response.filter(({student_email}) => student_email === null);
+            
+            (() => {
+              let xhr = new XMLHttpRequest();
+              xhr.open('GET', '/api/staff_members');
+              xhr.responseType = 'json';
+              xhr.send();
+
+              xhr.addEventListener('load', event => {
+                let staffs = xhr.response;
+
+                availableSchedules.forEach(schedule => {
+                  staffs.forEach(staff => {
+                    if (staff.id === schedule.staff_id) {
+                      let option = document.createElement('option');
+                      option.textContent = `${staff.name} | ${schedule.date} | ${schedule.time}`;
+                      option.setAttribute('value', String(schedule.id));
+                      select.appendChild(option);
+                    }
+                    });
+                  })
+              })
+            })();
+          })
+        })();
+      }
+  </script>
+</head>
+<body>
+  <div id="student-booking">
+    <h1>Schedules</h1>
+    <form action="/api/bookings">
+      <label for="schedule">Please select one schedule</label>
+      <select name="schedule" id="select-schedule"></select>
+
+      <label for="student_email">Email: </label>
+      <input type="email" name="student_email" required>
+
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+
+  <div id="add-new-student" hidden>
+    <h1>Please provide new student details </h1>
+    <form action="/api/students">
+      <label for="student_email">Email: </label>
+      <input type="email" name="email" id="email">
+      
+      <label for="name">Name: </label>
+      <input type="text" name="name" id="name">
+
+      <label for="booking_sequence">Booking Sequence: </label>
+      <input type="text" name="booking_sequence" id="booking_sequence">
+
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+</body>
+</html>

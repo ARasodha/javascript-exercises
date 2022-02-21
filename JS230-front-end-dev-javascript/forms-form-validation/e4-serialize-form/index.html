@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up</title>
+  <!-- <link rel="stylesheet" href="whitespace.css"> -->
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+  <script src="script.js"></script>
+</head>
+<body>
+  <h1>Sign Up Form</h1>
+  <section id="form-section">
+    <p id="submit-warning">Form cannot be submitted until errors are corrected.</p>
+    <form action="">
+      <dl>
+        <dt><label for="first-name">First Name</label></dt>
+        <dd><input type="text" name="first-name"> <p class="warning" id="first-name">First Name is a required field.</p></dd>
+        <dt><label for="last-name">Last Name</label></dt>
+        <dd><input type="text" name="last-name"> <p class="warning" id="last-name">Last Name is a required field.</p></dd>
+        <dt><label for="email">Email</label></dt>
+        <dd><input type="email" name="email" placeholder="someone@example.com"> <p class="warning" id="email">Email is a required field.</p></dd>
+        <dt><label for="password">Password</label></dt>
+        <dd><input type="password" name="password"> <p class="warning" id="password">Password is a required field. Must be 10 characters.</p></dd>
+        <dt><label for="phone-number">Phone Number</label></dt>
+        <dd><input type="tel" name="phone-number" placeholder="111-222-3333"> <p class="warning" id="phone-number">Please enter a valid Phone Number.</p></dd>
+      
+        <dt><label for="ccn">Credit Card</label></dt>
+        <dd><input type="text" class="ccn">-<input type="text" class="ccn">-<input type="text" class="ccn">-<input type="text" class="ccn" id="ccn4"></dd>
+        <dd><input type="submit" name="submit" value="Sign Up"></dd>
+      </dl>
+    </form>
+  </section>
+
+  <section id="form-submit-info">
+    <h1>Serialized Form</h1>
+  </section>
+
+  <script id="form-submit-template" type="text/x-handlebars-template">
+    <h1>Serialized Form</h1>
+    <p><b>{{responseBody}}</b></p>
+  </script>
+</body>
+</html>

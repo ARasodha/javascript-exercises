@@ -1,15 +1,15 @@
 //9 ..and Vice Versa:
 
-// let nestedArray = [['title', 'Duke'], ['name', 'Nukem'], ['age', 33]];
+let nestedArray = [['title', 'Duke'], ['name', 'Nukem'], ['age', 33]];
 
 // Expected output:
 // { title: 'Duke', name: 'Nukem', age: 33 }
 
-// MY SOLUTION (SUCCESSFUL fromEntries method)
-// const obj = Object.fromEntries(nestedArray);
-// console.log(obj);
+// MY SOLUTION (fromEntries method)
+const obj = Object.fromEntries(nestedArray);
+console.log(obj);
 
-// // BOOK METHOD:
+// BOOK METHOD:
 // let person = {};
 // for (let i = 0; i < nestedArray.length; i++){
 //   let pair = nestedArray[i];
